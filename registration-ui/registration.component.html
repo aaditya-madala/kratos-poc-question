@@ -1,0 +1,46 @@
+<mat-card *ngIf="registrationFlowObject$ | async; let flow">
+    <mat-card-title>Registration</mat-card-title>
+    <mat-card-content>
+        <div fxLayout="row" fxLayoutGap="20px">
+            <div fxLayout="column">
+                <form [formGroup]="form" (ngSubmit)="submitForm(flow.ui.action)">
+                    <input type="hidden" formControlName="csrf_token" [ngModel]="flow.ui.nodes[0].attributes.value"
+                        required />
+
+                    <mat-form-field>
+                        <mat-label>E-Mail</mat-label>
+                        <input matInput type="email" formControlName="email">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName">
+                    </mat-form-field>
+
+                    <button mat-flat-button color="primary" type="submit" name='method'
+                        value='password'>Register</button>
+                </form>
+            </div>
+            <div>
+                <div>
+                    Flow Object: <br>
+                    <pre style="height: 250px; overflow-y: scroll;">{{flow | json}}</pre>
+                </div>
+                <div>
+                    Form Submit: <br>
+                    <pre style="height: 250px; overflow-y: scroll;">{{response | json}}</pre>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
